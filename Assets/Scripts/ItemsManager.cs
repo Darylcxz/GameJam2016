@@ -20,17 +20,18 @@ public class ItemsManager : MonoBehaviour {
             if(Input.GetKeyDown(KeyCode.E))
             {
                 int.TryParse(other.gameObject.name, out itemnumber);
-                if(itemnumber == ingredientindex)
+                if(itemnumber == ingredientindex && ingredientindex != ingredientlevel)
                 {
-                    if(itemnumber == ingredientlevel)
-                    {
-                        Debug.Log("Light Shines Brighter");
-                        ingredientlevel++;
-                        ingredientindex = 0;
-                        SpawnNewItems();
-                    }
                     Debug.Log("Correct item " + itemnumber);
                     ingredientindex++;
+                }
+
+                else if(itemnumber == ingredientindex && ingredientindex == ingredientlevel)
+                {
+                    Debug.Log("Light Shines Brighter");
+                    ingredientlevel++;
+                    ingredientindex = 0;
+                    SpawnNewItems();
                 }
 
                 else
