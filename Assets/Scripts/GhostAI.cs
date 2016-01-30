@@ -54,6 +54,7 @@ public class GhostAI : MonoBehaviour {
 		booSprite = booSprite.GetComponent<SpriteRenderer>();
 		spriteScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
 		targetPos = circleCenter + (UtilityScript.OnUnitCircle(rectSize.x,rectSize.y) * circleRadius);
+		FindNewTargetPosition();
 		SpriteReposition();
 	
 	}
@@ -160,6 +161,7 @@ public class GhostAI : MonoBehaviour {
 		if(_col.gameObject.CompareTag("Player"))
 		{
 			//Send message to player when it hits the player
+			FindNewTargetPosition();
 			_col.gameObject.SendMessage("TakeDamage", 10f,SendMessageOptions.DontRequireReceiver);
 			States = AILogic.RUNFROMPLAYER;
 			fadeAway = true;
