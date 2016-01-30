@@ -136,15 +136,6 @@ public class GhostAI : MonoBehaviour {
 	}
 	void SpriteReposition()
 	{
-
-		//if (transform.eulerAngles.z > 0 && transform.eulerAngles.z < 90 || transform.eulerAngles.z > 180 && transform.eulerAngles.z < 270)
-		//{
-		//	transform.localScale = new Vector3(spriteScale.x, -spriteScale.y, transform.localScale.z);
-		//}
-		//else
-		//{
-		//	transform.localScale = new Vector3(spriteScale.x, spriteScale.y, transform.localScale.z);
-		//}
 		if (transform.eulerAngles.z > 0 && transform.eulerAngles.z < 90)
 		{
 			transform.localScale = new Vector3(-spriteScale.x, spriteScale.y, transform.localScale.z);
