@@ -24,6 +24,7 @@ public class ItemsManager : MonoBehaviour {
                 {
                     Debug.Log("Correct item " + itemnumber);
                     ingredientindex++;
+                    other.gameObject.SetActive(false);
                 }
 
                 else if(itemnumber == ingredientindex && ingredientindex == ingredientlevel)
@@ -31,6 +32,7 @@ public class ItemsManager : MonoBehaviour {
                     Debug.Log("Light Shines Brighter");
                     ingredientlevel++;
                     ingredientindex = 0;
+                    other.gameObject.SetActive(false);
                     SpawnNewItems();
                 }
 
