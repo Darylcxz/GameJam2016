@@ -7,6 +7,10 @@ public class ItemsManager : MonoBehaviour {
     private int itemnumber;
 
     [SerializeField] GameObject[] items;
+    [SerializeField]
+    AudioSource maincam;
+    [SerializeField]
+    AudioClip wrongtitem;
 
     void Start()
     {
@@ -38,6 +42,7 @@ public class ItemsManager : MonoBehaviour {
                 else
                 {
                     Debug.Log("Wrong item " + itemnumber + " this should be " + ingredientindex);
+                    maincam.PlayOneShot(wrongtitem);
                 }
             }
         }

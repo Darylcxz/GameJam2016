@@ -5,6 +5,11 @@ public class LauncherScript : MonoBehaviour {
     [SerializeField] GameObject jumpvfx;
     [SerializeField]
     float launchforce;
+    [SerializeField]
+    AudioSource maincam;
+
+    [SerializeField]
+    AudioClip soundfx;
     void Start()
     {
         jumpvfx.SetActive(false);
@@ -15,6 +20,7 @@ public class LauncherScript : MonoBehaviour {
         {
             Rigidbody2D player = other.gameObject.GetComponent<Rigidbody2D>();
             jumpvfx.SetActive(true);
+            maincam.PlayOneShot(soundfx);
             player.AddForce(Vector2.up * launchforce, ForceMode2D.Impulse);
             Invoke("SetFalse", 1.0f);
         }

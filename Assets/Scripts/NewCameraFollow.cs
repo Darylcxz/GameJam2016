@@ -11,7 +11,7 @@ public class NewCameraFollow : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 
         float moveX = target.transform.position.x - transform.position.x;
         float moveY = target.transform.position.y - transform.position.y;
