@@ -24,6 +24,8 @@ public class ItemsManager : MonoBehaviour {
                 {
                     Debug.Log("Correct item " + itemnumber);
                     ingredientindex++;
+                    ParticleSystem pickupfx = other.gameObject.GetComponentInChildren<ParticleSystem>();
+                    pickupfx.Play();
                     other.gameObject.SetActive(false);
                 }
 
@@ -32,6 +34,8 @@ public class ItemsManager : MonoBehaviour {
                     Debug.Log("Light Shines Brighter");
                     ingredientlevel++;
                     ingredientindex = 0;
+                    ParticleSystem pickupsfx = other.gameObject.GetComponentInChildren<ParticleSystem>();
+                    pickupsfx.Play();
                     other.gameObject.SetActive(false);
                     SpawnNewItems();
                 }
