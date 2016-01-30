@@ -3,7 +3,7 @@ using System.Collections;
 
 public class Playerlogic : MonoBehaviour {
     Rigidbody2D rb;
-	Collider2D col;
+	//Collider2D col;
     [SerializeField]Transform groundtag;
     [SerializeField] float movespeed;
     [SerializeField] float jumpforce;
@@ -14,6 +14,8 @@ public class Playerlogic : MonoBehaviour {
     [SerializeField]ParticleSystem dust;
     [SerializeField]GameObject jumpdust;
     SpriteRenderer sp;
+
+	RaycastHit2D hit;
 
 	[SerializeField]
 	enum StateMachine
@@ -31,7 +33,7 @@ public class Playerlogic : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         rb = gameObject.GetComponent<Rigidbody2D>();
-		col = GetComponent<Collider2D>();
+//		col = GetComponent<Collider2D>();
 		_playerAnim = GetComponent<Animator>();
 		playerScale = transform.localScale;
         sp = gameObject.GetComponent<SpriteRenderer>();
@@ -41,7 +43,7 @@ public class Playerlogic : MonoBehaviour {
 	void Update () {
         onGround = Physics2D.Linecast(transform.position, groundtag.position, playermask);
 		_playerAnim.SetBool("bGrounded", onGround);
-		//MoveLogic();
+		
 		Move(Input.GetAxisRaw("Horizontal"));
 		if (onGround)
 		{
@@ -50,8 +52,13 @@ public class Playerlogic : MonoBehaviour {
 				_playerAnim.SetBool("bDuck", true);
 				if (Input.GetKeyDown(KeyCode.Space))
 				{
-					StartCoroutine("DownJump");
-					rb.velocity += Vector2.down * jumpforce;
+					hit = (Physics2D.Raycast(groundtag.position, Vector2.down, 0.5f));
+					if (hit != null && hit.collider.CompareTag("Platform"))
+					{
+						StartCoroutine("DownJump",hit.collider.gameObject);
+						rb.velocity += Vector2.down * jumpforce;
+					}
+					
 				}
 			}
 			if (Input.GetKeyDown(KeyCode.Space) && Input.GetAxisRaw("Vertical") > -1)
@@ -113,14 +120,18 @@ public class Playerlogic : MonoBehaviour {
             yield return new WaitForSeconds(0.05f);
         }
     }
-	IEnumerator DownJump()
+	IEnumerator DownJump(GameObject col)
 	{
-		Debug.Log("Hide");
-		col.enabled = false;
-		yield return new WaitForSeconds(0.1f);
+		Collider2D[] temp = col.GetComponents<Collider2D>();
+		foreach (Collider2D _col in temp)
+		{
+			_col.enabled = false;
+		}
+		yield return new WaitForSeconds(1f);
 		_playerAnim.SetBool("bDuck", false);
-		col.enabled = true;
-		Debug.Log("lol");
-
+		foreach (Collider2D _col in temp)
+		{
+			_col.enabled = true;
+		}
 	}
 }
