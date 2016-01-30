@@ -66,14 +66,17 @@ public class UtilityScript : MonoBehaviour {
 			_img.color = new Color(_img.color.r, _img.color.g, _img.color.b, _alpha);
 		}
 	}
-	public static Vector3 OnUnitCircle()
+	public static Vector3 OnUnitCircle(float x,float y)
 	{
-		float angleInRadians = Random.Range(0, Mathf.PI);
-		float x = Mathf.Cos(angleInRadians);
-		float y = Mathf.Sin(angleInRadians);
+		//float x = Mathf.Cos(angleInRadians);
+		//float y = Mathf.Sin(angleInRadians);
+
+		float newX = Random.Range(0, x);
+		float newY = Random.Range(0, y);
 
 		//random x min x max
 		//random y min y max
-		return new Vector3(x, y, 0);
+		//Debug.Log(new Vector3(newX, newY, 0));
+		return new Vector3(newX, newY, 0);
 	}
 }

@@ -3,6 +3,7 @@ using System.Collections;
 
 public class GhostAI : MonoBehaviour {
 
+
 	[SerializeField]
 	enum AILogic
 	{
@@ -37,13 +38,14 @@ public class GhostAI : MonoBehaviour {
 	float aggroRange = 10f;
 	[SerializeField]float circleRadius = 20f;
 	[SerializeField]Vector3 circleCenter;
+	[SerializeField]Vector3 rectSize;
 	Vector3 targetPos;
 	float minDistance = 5f; //distance before it finds new pos;
 	float distanceToPlayer;
 
 
 	float gameTimer;
-	float waitTime = 1f;
+	float waitTime = 0.1f;
 
 	// Use this for initialization
 	void Start () {
@@ -51,17 +53,15 @@ public class GhostAI : MonoBehaviour {
 		target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
 		booSprite = booSprite.GetComponent<SpriteRenderer>();
 		spriteScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
-		targetPos = circleCenter + (UtilityScript.OnUnitCircle() * circleRadius);
+		targetPos = circleCenter + (UtilityScript.OnUnitCircle(rectSize.x,rectSize.y) * circleRadius);
 	
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		StateMachine();
-		
-		
-		
-	
+
+		//Debug.Log(UtilityScript.OnUnitCircle(rectSize.x, rectSize.y));
 
 		
 	
@@ -69,7 +69,7 @@ public class GhostAI : MonoBehaviour {
 	void StateMachine()
 	{
 		distanceToPlayer = Vector3.Distance(transform.position, target.position);
-		Debug.Log(distanceToPlayer);
+//		Debug.Log(distanceToPlayer);
 		switch (States)
 		{
  			case AILogic.PATROL:
@@ -136,14 +136,32 @@ public class GhostAI : MonoBehaviour {
 	}
 	void SpriteReposition()
 	{
-		if (transform.eulerAngles.z > 90 && transform.eulerAngles.z < 360)
+
+		//if (transform.eulerAngles.z > 0 && transform.eulerAngles.z < 90 || transform.eulerAngles.z > 180 && transform.eulerAngles.z < 270)
+		//{
+		//	transform.localScale = new Vector3(spriteScale.x, -spriteScale.y, transform.localScale.z);
+		//}
+		//else
+		//{
+		//	transform.localScale = new Vector3(spriteScale.x, spriteScale.y, transform.localScale.z);
+		//}
+		if (transform.eulerAngles.z > 0 && transform.eulerAngles.z < 90)
 		{
-			transform.localScale = new Vector3(-spriteScale.x, transform.localScale.y, transform.localScale.z);
+			transform.localScale = new Vector3(-spriteScale.x, spriteScale.y, transform.localScale.z);
 		}
-		else
+		if (transform.eulerAngles.z > 90 && transform.eulerAngles.z < 180)
 		{
-			transform.localScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
+			transform.localScale = new Vector3(-spriteScale.x, -spriteScale.y, transform.localScale.z);
 		}
+		if (transform.eulerAngles.z > 180 && transform.eulerAngles.z < 270)
+		{
+			transform.localScale = new Vector3(-spriteScale.x, -spriteScale.y, transform.localScale.z);
+		}
+		if (transform.eulerAngles.z > 270 && transform.eulerAngles.z < 359)
+		{
+			transform.localScale = new Vector3(-spriteScale.x, spriteScale.y, transform.localScale.z);
+		}
+		
 	}
 	void OnTriggerEnter2D(Collider2D _col)
 	{
@@ -164,13 +182,16 @@ public class GhostAI : MonoBehaviour {
 	}
 	void FindNewTargetPosition()
 	{
-		targetPos = circleCenter + (UtilityScript.OnUnitCircle() * circleRadius);
+		targetPos = circleCenter + (UtilityScript.OnUnitCircle(rectSize.x,rectSize.y) * circleRadius);
 	}
 	void OnDrawGizmos()
 	{
 		Gizmos.color = Color.black;
-		Gizmos.DrawWireSphere(circleCenter, circleRadius);
-		Gizmos.DrawWireCube(circleCenter, new Vector3(1,1,1)*circleRadius);
+	//	Gizmos.DrawWireSphere(circleCenter, circleRadius);
+		float offsetX = rectSize.x / 2;
+		float offsetY = rectSize.y / 2;
+		Vector3 cubePos = new Vector3(offsetX, offsetY, 0);
+		Gizmos.DrawWireCube(circleCenter+(cubePos*circleRadius), rectSize*circleRadius);
 		Gizmos.color = Color.red;
 		Gizmos.DrawWireCube(targetPos, new Vector3(1, 1, 1));
 	}
