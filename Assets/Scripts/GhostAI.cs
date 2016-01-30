@@ -189,7 +189,6 @@ public class GhostAI : MonoBehaviour {
 	}
 	public void SetSpawn(Vector3 _spawnPoint)
 	{
-		Debug.Log(_spawnPoint);
 		spawnPoint = _spawnPoint;
 	}
 }

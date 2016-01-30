@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Playerlogic : MonoBehaviour {
     Rigidbody2D rb;
+	Collider2D col;
     [SerializeField]Transform groundtag;
     [SerializeField] float movespeed;
     [SerializeField] float jumpforce;
@@ -14,11 +15,23 @@ public class Playerlogic : MonoBehaviour {
     [SerializeField]GameObject jumpdust;
     SpriteRenderer sp;
 
+	[SerializeField]
+	enum StateMachine
+	{
+		IDLE,
+		MOVE,
+		JUMP,
+		DOWNJUMP
+	};
+	[SerializeField]
+	StateMachine States = StateMachine.IDLE;
+
 	Vector3 playerScale;
 	private Animator _playerAnim;
 	// Use this for initialization
 	void Start () {
         rb = gameObject.GetComponent<Rigidbody2D>();
+		col = GetComponent<Collider2D>();
 		_playerAnim = GetComponent<Animator>();
 		playerScale = transform.localScale;
         sp = gameObject.GetComponent<SpriteRenderer>();
@@ -27,15 +40,31 @@ public class Playerlogic : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         onGround = Physics2D.Linecast(transform.position, groundtag.position, playermask);
-        Move(Input.GetAxisRaw("Horizontal"));
-        if(onGround)
-        {
-            if(Input.GetKeyDown(KeyCode.Space))
-            {
-                GameObject jumpcloud = Instantiate(jumpdust, transform.position + Vector3.down * 1.8f, jumpdust.transform.rotation) as GameObject;
-                rb.velocity += Vector2.up * jumpforce;
-            }
-        }
+		_playerAnim.SetBool("bGrounded", onGround);
+		//MoveLogic();
+		Move(Input.GetAxisRaw("Horizontal"));
+		if (onGround)
+		{
+			if (Input.GetAxisRaw("Vertical") < 0)
+			{
+				_playerAnim.SetBool("bDuck", true);
+				if (Input.GetKeyDown(KeyCode.Space))
+				{
+					StartCoroutine("DownJump");
+					rb.velocity += Vector2.down * jumpforce;
+				}
+			}
+			if (Input.GetKeyDown(KeyCode.Space) && Input.GetAxisRaw("Vertical") > -1)
+			{
+				GameObject jumpcloud = Instantiate(jumpdust, transform.position + Vector3.down * 1.8f, jumpdust.transform.rotation) as GameObject;
+				rb.velocity += Vector2.up * jumpforce;
+			}
+
+		}
+		if (Input.GetAxisRaw("Vertical")>-1)
+		{
+			_playerAnim.SetBool("bDuck", false);
+		}
 	}
 
     void Move(float h1)
@@ -84,4 +113,14 @@ public class Playerlogic : MonoBehaviour {
             yield return new WaitForSeconds(0.05f);
         }
     }
+	IEnumerator DownJump()
+	{
+		Debug.Log("Hide");
+		col.enabled = false;
+		yield return new WaitForSeconds(0.1f);
+		_playerAnim.SetBool("bDuck", false);
+		col.enabled = true;
+		Debug.Log("lol");
+
+	}
 }
