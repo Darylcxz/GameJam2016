@@ -8,6 +8,7 @@ public class Playerlogic : MonoBehaviour {
     [SerializeField] float jumpforce;
     public LayerMask playermask;
     private bool onGround;
+    ParticleSystem dust;
 
 	Vector3 playerScale;
 	private Animator _playerAnim;
@@ -16,6 +17,7 @@ public class Playerlogic : MonoBehaviour {
         rb = gameObject.GetComponent<Rigidbody2D>();
 		_playerAnim = GetComponent<Animator>();
 		playerScale = transform.localScale;
+        dust = gameObject.GetComponentInChildren<ParticleSystem>();
 	}
 	
 	// Update is called once per frame
@@ -46,5 +48,12 @@ public class Playerlogic : MonoBehaviour {
 		{
 			transform.localScale = new Vector3(playerScale.x, playerScale.y, playerScale.z);
 		}
+    }
+
+    public void Playdust()
+    {
+        if(onGround)
+            dust.Play();
+        
     }
 }
