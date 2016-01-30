@@ -68,8 +68,6 @@ public class UtilityScript : MonoBehaviour {
 	}
 	public static Vector3 OnUnitCircle(float x,float y)
 	{
-		//float x = Mathf.Cos(angleInRadians);
-		//float y = Mathf.Sin(angleInRadians);
 
 		float newX = Random.Range(0, x);
 		float newY = Random.Range(0, y);
