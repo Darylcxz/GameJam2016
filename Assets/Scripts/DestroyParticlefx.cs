@@ -6,7 +6,7 @@ public class DestroyParticlefx : MonoBehaviour {
 
     void OnEnable()
     {
-        Invoke("Destroyitself", 0.5f);
+        Invoke("Destroyitself", 1.0f);
     }
 
     void Destroyitself()
