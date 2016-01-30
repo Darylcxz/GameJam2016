@@ -1,8 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class NewCameraFollow : MonoBehaviour {
+public class NewCameraFollow : MonoBehaviour 
+{
     GameObject target;
+
+    float min = -10;
+    float max = 10;
+
 	// Use this for initialization
 	void Start () {
 
@@ -16,8 +21,9 @@ public class NewCameraFollow : MonoBehaviour {
         float moveX = target.transform.position.x - transform.position.x;
         float moveY = target.transform.position.y - transform.position.y;
 
-        Vector2 currLocation = new Vector2(transform.position.x + moveX / 6, transform.position.y + moveY / 6);
-        transform.position = currLocation;
+        Vector3 currLocation = new Vector3(transform.position.x + moveX / 6, transform.position.y + moveY / 6, 0);
+        transform.position = new Vector3(Mathf.Clamp(currLocation.x, min, max), Mathf.Clamp(currLocation.y, min, max), 0);
+        //currLocation
 	
 	}
 }
