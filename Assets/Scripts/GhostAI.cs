@@ -14,8 +14,8 @@ public class GhostAI : MonoBehaviour {
 	};
 	[SerializeField]AILogic States = AILogic.PATROL;
 
-	[SerializeField]
-	Transform spawnPoint;
+	
+	Vector3 spawnPoint;
 
 	
 	Rigidbody2D _rb;  //rigidbody of boo
@@ -54,6 +54,7 @@ public class GhostAI : MonoBehaviour {
 		booSprite = booSprite.GetComponent<SpriteRenderer>();
 		spriteScale = new Vector3(transform.localScale.x, transform.localScale.y, transform.localScale.z);
 		targetPos = circleCenter + (UtilityScript.OnUnitCircle(rectSize.x,rectSize.y) * circleRadius);
+		SpriteReposition();
 	
 	}
 	
@@ -166,7 +167,7 @@ public class GhostAI : MonoBehaviour {
 	void ResetAI()
 	{
 		States = AILogic.PATROL;
-		transform.position = spawnPoint.position;
+		transform.position = spawnPoint;
 		transform.rotation = Quaternion.identity;
 		booSprite.color = new Color(1, 1, 1, 1);
 		gameTimer = 0;
@@ -185,5 +186,10 @@ public class GhostAI : MonoBehaviour {
 		Gizmos.DrawWireCube(circleCenter+(cubePos*circleRadius), rectSize*circleRadius);
 		Gizmos.color = Color.red;
 		Gizmos.DrawWireCube(targetPos, new Vector3(1, 1, 1));
+	}
+	public void SetSpawn(Vector3 _spawnPoint)
+	{
+		Debug.Log(_spawnPoint);
+		spawnPoint = _spawnPoint;
 	}
 }
