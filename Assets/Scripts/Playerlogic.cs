@@ -45,6 +45,11 @@ public class Playerlogic : MonoBehaviour {
 		
 		_alpha = currentHealth / maxHealth;
 		healthGlow.color = new Color(healthGlow.color.r, healthGlow.color.g, healthGlow.color.b, _alpha);
+		currentHealth += Time.deltaTime/2;
+		if (currentHealth > maxHealth)
+		{
+			currentHealth = maxHealth;
+		}
 	
 		Move(Input.GetAxisRaw("Horizontal"));
 		if (onGround)
@@ -94,6 +99,7 @@ public class Playerlogic : MonoBehaviour {
     }
 	public void TakeDamage(float dmg)
 	{
+		Flicker();
 		currentHealth -= dmg;
 	}
     public void Playdust()
@@ -120,7 +126,7 @@ public class Playerlogic : MonoBehaviour {
                 sp.color = new Color(sp.color.r, sp.color.g, sp.color.b, 1.0f);
                 flickrcheck = false;
             }
-            yield return new WaitForSeconds(0.05f);
+            yield return new WaitForSeconds(0.08f);
         }
     }
 	IEnumerator DownJump(GameObject col)

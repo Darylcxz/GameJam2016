@@ -160,6 +160,7 @@ public class GhostAI : MonoBehaviour {
 		if(_col.gameObject.CompareTag("Player"))
 		{
 			//Send message to player when it hits the player
+			_col.gameObject.SendMessage("TakeDamage", 10f,SendMessageOptions.DontRequireReceiver);
 			States = AILogic.RUNFROMPLAYER;
 			fadeAway = true;
 		}
