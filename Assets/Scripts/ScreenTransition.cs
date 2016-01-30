@@ -21,10 +21,9 @@ public class ScreenTransition : MonoBehaviour {
 	void Update () {
 		if (Input.GetKeyDown(KeyCode.F)&&!bFade)
 		{
-			StartCoroutine("Faded");
-			bFade = true;
+			UtilityScript.instance.FadeInFadeOut(fadeUI);
 		}
-		fadeUI.color = new Color(fadeUI.color.r, fadeUI.color.g, fadeUI.color.b, _alpha);
+	//	fadeUI.color = new Color(fadeUI.color.r, fadeUI.color.g, fadeUI.color.b, _alpha);
 	}
 	IEnumerator Faded()
 	{
