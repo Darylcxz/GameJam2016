@@ -3,6 +3,8 @@ using System.Collections;
 
 public class LauncherScript : MonoBehaviour {
     [SerializeField] GameObject jumpvfx;
+    [SerializeField]
+    float launchforce;
     void Start()
     {
         jumpvfx.SetActive(false);
@@ -13,7 +15,7 @@ public class LauncherScript : MonoBehaviour {
         {
             Rigidbody2D player = other.gameObject.GetComponent<Rigidbody2D>();
             jumpvfx.SetActive(true);
-            player.AddForce(Vector2.up * 20, ForceMode2D.Impulse);
+            player.AddForce(Vector2.up * launchforce, ForceMode2D.Impulse);
             Invoke("SetFalse", 1.0f);
         }
     }
