@@ -6,9 +6,13 @@ public class Playerlogic : MonoBehaviour {
     [SerializeField]Transform groundtag;
     [SerializeField] float movespeed;
     [SerializeField] float jumpforce;
+    float alpha;
     public LayerMask playermask;
     private bool onGround;
-    ParticleSystem dust;
+    bool flickrcheck = false;
+    [SerializeField]ParticleSystem dust;
+    [SerializeField]GameObject jumpdust;
+    SpriteRenderer sp;
 
 	Vector3 playerScale;
 	private Animator _playerAnim;
@@ -17,7 +21,7 @@ public class Playerlogic : MonoBehaviour {
         rb = gameObject.GetComponent<Rigidbody2D>();
 		_playerAnim = GetComponent<Animator>();
 		playerScale = transform.localScale;
-        dust = gameObject.GetComponentInChildren<ParticleSystem>();
+        sp = gameObject.GetComponent<SpriteRenderer>();
 	}
 	
 	// Update is called once per frame
@@ -28,6 +32,7 @@ public class Playerlogic : MonoBehaviour {
         {
             if(Input.GetKeyDown(KeyCode.Space))
             {
+                GameObject jumpcloud = Instantiate(jumpdust, transform.position + Vector3.down * 1.8f, jumpdust.transform.rotation) as GameObject;
                 rb.velocity += Vector2.up * jumpforce;
             }
         }
@@ -54,6 +59,29 @@ public class Playerlogic : MonoBehaviour {
     {
         if(onGround)
             dust.Play();
-        
+    }
+
+    public void Flicker()
+    {
+        StartCoroutine("Flickering");
+    }
+
+    IEnumerator Flickering()
+    {
+        for (int i = 0; i < 6; i++)
+        {
+            if(!flickrcheck)
+            {
+                sp.color = new Color(sp.color.r, sp.color.g, sp.color.b, 0.1f);
+                flickrcheck = true;
+            }
+
+            else if(flickrcheck)
+            {
+                sp.color = new Color(sp.color.r, sp.color.g, sp.color.b, 1.0f);
+                flickrcheck = false;
+            }
+            yield return new WaitForSeconds(0.05f);
+        }
     }
 }
