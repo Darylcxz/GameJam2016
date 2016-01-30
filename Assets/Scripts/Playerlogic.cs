@@ -1,14 +1,22 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class Playerlogic : MonoBehaviour {
+
+	[SerializeField]float maxHealth = 100f;
+	[SerializeField]float currentHealth;
+	[SerializeField]SpriteRenderer healthGlow;
+	float _alpha;
+
     Rigidbody2D rb;
-	//Collider2D col;
+
     [SerializeField]Transform groundtag;
     [SerializeField] float movespeed;
     [SerializeField] float jumpforce;
     float alpha;
     public LayerMask playermask;
+	public LayerMask platformMask;
     private bool onGround;
     bool flickrcheck = false;
     [SerializeField]ParticleSystem dust;
@@ -16,17 +24,6 @@ public class Playerlogic : MonoBehaviour {
     SpriteRenderer sp;
 
 	RaycastHit2D hit;
-
-	[SerializeField]
-	enum StateMachine
-	{
-		IDLE,
-		MOVE,
-		JUMP,
-		DOWNJUMP
-	};
-	[SerializeField]
-	StateMachine States = StateMachine.IDLE;
 
 	Vector3 playerScale;
 	private Animator _playerAnim;
@@ -37,6 +34,8 @@ public class Playerlogic : MonoBehaviour {
 		_playerAnim = GetComponent<Animator>();
 		playerScale = transform.localScale;
         sp = gameObject.GetComponent<SpriteRenderer>();
+		healthGlow = healthGlow.GetComponent<SpriteRenderer>();
+		currentHealth = maxHealth;
 	}
 	
 	// Update is called once per frame
@@ -44,6 +43,9 @@ public class Playerlogic : MonoBehaviour {
         onGround = Physics2D.Linecast(transform.position, groundtag.position, playermask);
 		_playerAnim.SetBool("bGrounded", onGround);
 		
+		_alpha = currentHealth / maxHealth;
+		healthGlow.color = new Color(healthGlow.color.r, healthGlow.color.g, healthGlow.color.b, _alpha);
+	
 		Move(Input.GetAxisRaw("Horizontal"));
 		if (onGround)
 		{
@@ -52,8 +54,8 @@ public class Playerlogic : MonoBehaviour {
 				_playerAnim.SetBool("bDuck", true);
 				if (Input.GetKeyDown(KeyCode.Space))
 				{
-					hit = (Physics2D.Raycast(groundtag.position, Vector2.down, 0.5f));
-					if (hit != null && hit.collider.CompareTag("Platform"))
+					hit = (Physics2D.Raycast(groundtag.position, Vector2.down, 0.5f,platformMask));
+					if (hit.collider.CompareTag("Platform"))
 					{
 						StartCoroutine("DownJump",hit.collider.gameObject);
 						rb.velocity += Vector2.down * jumpforce;
@@ -90,18 +92,19 @@ public class Playerlogic : MonoBehaviour {
 			transform.localScale = new Vector3(playerScale.x, playerScale.y, playerScale.z);
 		}
     }
-
+	public void TakeDamage(float dmg)
+	{
+		currentHealth -= dmg;
+	}
     public void Playdust()
     {
         if(onGround)
             dust.Play();
     }
-
     public void Flicker()
     {
         StartCoroutine("Flickering");
     }
-
     IEnumerator Flickering()
     {
         for (int i = 0; i < 6; i++)
