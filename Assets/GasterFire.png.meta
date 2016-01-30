@@ -1,0 +1,209 @@
+fileFormatVersion: 2
+guid: 68e0f73257cc32f45bb89c1fe0eeedc4
+timeCreated: 1454134734
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: GasterFire_0
+    21300002: GasterFire_1
+    21300004: GasterFire_2
+    21300006: GasterFire_3
+    21300008: GasterFire_4
+    21300010: GasterFire_5
+    21300012: GasterFire_6
+    21300014: GasterFire_7
+    21300016: GasterFire_8
+    21300018: GasterFire_9
+    21300020: GasterFire_10
+    21300022: GasterFire_11
+    21300024: GasterFire_12
+    21300026: GasterFire_13
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: GasterFire_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 397
+        width: 197
+        height: 197
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: GasterFire_1
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 397
+        width: 197
+        height: 197
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: GasterFire_2
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 397
+        width: 197
+        height: 197
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: GasterFire_3
+      rect:
+        serializedVersion: 2
+        x: 591
+        y: 397
+        width: 197
+        height: 197
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: GasterFire_4
+      rect:
+        serializedVersion: 2
+        x: 788
+        y: 397
+        width: 197
+        height: 197
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: GasterFire_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 200
+        width: 197
+        height: 197
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: GasterFire_6
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 200
+        width: 197
+        height: 197
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: GasterFire_7
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 200
+        width: 197
+        height: 197
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: GasterFire_8
+      rect:
+        serializedVersion: 2
+        x: 591
+        y: 200
+        width: 197
+        height: 197
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: GasterFire_9
+      rect:
+        serializedVersion: 2
+        x: 788
+        y: 200
+        width: 197
+        height: 197
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: GasterFire_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3
+        width: 197
+        height: 197
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: GasterFire_11
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 3
+        width: 197
+        height: 197
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: GasterFire_12
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 3
+        width: 197
+        height: 197
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: GasterFire_13
+      rect:
+        serializedVersion: 2
+        x: 591
+        y: 3
+        width: 197
+        height: 197
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
