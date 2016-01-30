@@ -27,6 +27,9 @@ public class Playerlogic : MonoBehaviour {
 
 	Vector3 playerScale;
 	private Animator _playerAnim;
+    [SerializeField]
+    AudioSource maincam;
+    [SerializeField] AudioClip[] soundeffects;
 	// Use this for initialization
 	void Start () {
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -71,6 +74,7 @@ public class Playerlogic : MonoBehaviour {
 			if (Input.GetKeyDown(KeyCode.Space) && Input.GetAxisRaw("Vertical") > -1)
 			{
 				GameObject jumpcloud = Instantiate(jumpdust, transform.position + Vector3.down * 1.8f, jumpdust.transform.rotation) as GameObject;
+                maincam.PlayOneShot(soundeffects[2]);
 				rb.velocity += Vector2.up * jumpforce;
 			}
 
@@ -99,13 +103,18 @@ public class Playerlogic : MonoBehaviour {
     }
 	public void TakeDamage(float dmg)
 	{
+        maincam.PlayOneShot(soundeffects[0]);
 		Flicker();
 		currentHealth -= dmg;
 	}
     public void Playdust()
     {
         if(onGround)
+        {
             dust.Play();
+            maincam.PlayOneShot(soundeffects[1]);
+        }
+            
     }
     public void Flicker()
     {

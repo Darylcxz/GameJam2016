@@ -4,6 +4,10 @@ using System.Collections;
 public class Itemscript : MonoBehaviour {
     ParticleSystem pickupvfx;
     SpriteRenderer item;
+    [SerializeField]
+    AudioSource maincam;
+    [SerializeField]
+    AudioClip soundfx;
 	// Use this for initialization
 	void Start () {
 
@@ -15,6 +19,7 @@ public class Itemscript : MonoBehaviour {
     void Collect()
     {
         pickupvfx.Play();
+        maincam.PlayOneShot(soundfx);
         item.color = new Color(item.color.r, item.color.g, item.color.b, 0.0f);
         Invoke("Destroyme", 1.0f);
     }
