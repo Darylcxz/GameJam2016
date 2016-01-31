@@ -194,4 +194,10 @@ public class GhostAI : MonoBehaviour {
 	{
 		spawnPoint = _spawnPoint;
 	}
+	public void DespawnAll()
+	{
+		Debug.Log("Despawen");
+		States = AILogic.RUNFROMPLAYER;
+		fadeAway = true;
+	}
 }
