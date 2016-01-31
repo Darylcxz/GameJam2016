@@ -5,19 +5,19 @@ public class NewCameraFollow : MonoBehaviour
 {
     GameObject target;
 
-    float min = -10;
-    float max = 10;
+    float min = -20;
+    float max = 20;
 
 	// Use this for initialization
 	void Start () {
 
-        target = GameObject.Find("Player");
+     
 	
 	}
 	
 	// Update is called once per frame
 	void FixedUpdate () {
-
+		target = GameObject.FindGameObjectWithTag("Player");
         float moveX = target.transform.position.x - transform.position.x;
         float moveY = target.transform.position.y - transform.position.y;
 

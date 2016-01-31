@@ -5,9 +5,6 @@ using System.Collections;
 public class UtilityScript : MonoBehaviour {
 
 	public static UtilityScript instance;
-
-	//[SerializeField] Image blackUI;
-	[SerializeField] Image whiteUI;
 	Image _img;
 	bool bFade;
 	float _alpha;
@@ -20,7 +17,7 @@ public class UtilityScript : MonoBehaviour {
 	void Start () 
 	{
 		instance = this;
-		_originalPos = _cam.position;
+	//	_originalPos = _cam.position;
 	
 	}
 	public void FlashToFade(Image _image)
@@ -93,17 +90,17 @@ public class UtilityScript : MonoBehaviour {
 		//_originalPos = _cam.position;
 
 		// Camera Shake
-		if (camShake > 0)
-		{
-			_cam.position = _originalPos + Random.insideUnitSphere * 2f;
+		//if (camShake > 0)
+		//{
+		//	_cam.position = _originalPos + Random.insideUnitSphere * 2f;
 
-			camShake -= Time.deltaTime;
-		}
-		else
-		{
-			camShake = 0f;
-			_cam.position = _originalPos;
-		}
+		//	camShake -= Time.deltaTime;
+		//}
+		//else
+		//{
+		//	camShake = 0f;
+		//	_cam.position = _originalPos;
+		//}
 		
 	}
 	public static Vector3 OnUnitCircle(float x,float y)
