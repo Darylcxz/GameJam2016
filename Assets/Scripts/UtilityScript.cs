@@ -5,9 +5,6 @@ using System.Collections;
 public class UtilityScript : MonoBehaviour {
 
 	public static UtilityScript instance;
-
-	//[SerializeField] Image blackUI;
-	[SerializeField] Image whiteUI;
 	Image _img;
 	bool bFade;
 	float _alpha;
