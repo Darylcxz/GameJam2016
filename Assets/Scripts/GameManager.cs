@@ -10,22 +10,32 @@ public class GameManager : MonoBehaviour {
 	int currentLevel;
 	[SerializeField]
 	Image _img;
+	[SerializeField]
+	Transform playerSpawn;
+	GameObject player;
 
 	// Use this for initialization
 	void Start () {
-	//	whiteImg = whiteImg.GetComponent<Image>();
+		player = GameObject.FindGameObjectWithTag("Player");
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.L))
-		{
-			UtilityScript.instance.FadeInFadeOut(_img);
-		}
 	
 	}
-	void NextLevel()
+	public void NextLevel()
 	{
- 
+		UtilityScript.instance.FlashToFade(_img);
+		StartCoroutine("SwitchLevel");
+		
+	}
+	IEnumerator SwitchLevel()
+	{
+		Levels[currentLevel].SetActive(false);
+		currentLevel++;
+		player.transform.position = playerSpawn.position;
+		yield return new WaitForSeconds(0.1f);
+		Levels[currentLevel].SetActive(true);
+		yield return null;
 	}
 }

@@ -11,10 +11,12 @@ public class ItemsManager : MonoBehaviour {
     AudioSource maincam;
     [SerializeField]
     AudioClip wrongtitem;
+	[SerializeField]
+	GameManager _gm;
 
     void Start()
     {
-
+		_gm = _gm.GetComponent<GameManager>();
     }
 
     void OnTriggerStay2D(Collider2D other)
@@ -33,7 +35,8 @@ public class ItemsManager : MonoBehaviour {
 
                 else if(itemnumber == ingredientindex && ingredientindex == ingredientlevel)
                 {
-                    Debug.Log(ingredientlevel);
+                   // Debug.Log(ingredientlevel);
+					_gm.NextLevel();
                     ingredientlevel++;
                     ingredientindex = 0;
                     other.SendMessage("Collect");
