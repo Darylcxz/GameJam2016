@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class Itemscript : MonoBehaviour {
     ParticleSystem pickupvfx;
@@ -9,6 +10,8 @@ public class Itemscript : MonoBehaviour {
     [SerializeField]
     AudioClip soundfx;
 	Collider2D col;
+    [SerializeField] string uitext;
+    [SerializeField] GameObject ToastText;
 	// Use this for initialization
 	void Start () {
 
@@ -25,10 +28,18 @@ public class Itemscript : MonoBehaviour {
         col = gameObject.GetComponent<Collider2D>();
         col.enabled = false;
         Invoke("Destroyme", 1.0f);
+        TextAppears();
     }
 
     void Destroyme()
     {
         gameObject.SetActive(false);
+    }
+
+    void TextAppears()
+    {
+        GameObject UItext = Instantiate(ToastText, transform.position + Vector3.up * 2, ToastText.transform.rotation) as GameObject;
+        Text texttoshow = UItext.GetComponentInChildren<Text>();
+        texttoshow.text = uitext;
     }
 }
