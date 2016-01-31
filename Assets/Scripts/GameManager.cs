@@ -23,11 +23,14 @@ public class GameManager : MonoBehaviour {
 		player = GameObject.FindGameObjectWithTag("Player");
 		_spawnManager = _spawnManager.GetComponent<SpawnManager>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+	void Update()
+	{
+		if (Input.GetKeyDown(KeyCode.M))
+		{
+			StartCoroutine("SwitchLevel");
+		}
 	}
+
 	public void PlayExplosion()
 	{
 		_spawnManager.stop = true;
