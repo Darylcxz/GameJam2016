@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class ItemsManager : MonoBehaviour {
     private int ingredientlevel = 0;
@@ -13,6 +14,7 @@ public class ItemsManager : MonoBehaviour {
     AudioClip wrongtitem;
 	[SerializeField]
 	GameManager _gm;
+
 
     void Start()
     {
@@ -33,6 +35,7 @@ public class ItemsManager : MonoBehaviour {
                     Debug.Log("level = " + ingredientlevel);
                     Itemscript thisitem = other.GetComponent<Itemscript>();
                     thisitem.Collect();
+                    
                 }
 
                 else if(itemnumber == ingredientindex && ingredientindex == ingredientlevel)
@@ -54,4 +57,5 @@ public class ItemsManager : MonoBehaviour {
         }
     }
 
+    
 }
