@@ -6,8 +6,7 @@ public class GameManager : MonoBehaviour {
 
 	[SerializeField]
 	GameObject[] Levels;
-	[SerializeField]
-	int currentLevel;
+	public int currentLevel;
 	[SerializeField]
 	Image _img;
 	[SerializeField]
