@@ -38,7 +38,7 @@ public class ItemsManager : MonoBehaviour {
                 else if(itemnumber == ingredientindex && ingredientindex == ingredientlevel)
                 {
                     Debug.Log(ingredientlevel);
-					_gm.NextLevel();
+					_gm.PlayExplosion();
                     ingredientlevel++;
                     Itemscript thisitem = other.GetComponent<Itemscript>();
                     thisitem.Collect();
