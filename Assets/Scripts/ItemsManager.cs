@@ -30,7 +30,7 @@ public class ItemsManager : MonoBehaviour {
                 {
                     Debug.Log(itemnumber + " " + ingredientindex);
                     ingredientindex++;
-                    other.SendMessage("Collect");
+                    other.SendMessage("Collect",SendMessageOptions.DontRequireReceiver);
                 }
 
                 else if(itemnumber == ingredientindex && ingredientindex == ingredientlevel)
@@ -39,9 +39,8 @@ public class ItemsManager : MonoBehaviour {
 					_gm.NextLevel();
                     ingredientlevel++;
                     ingredientindex = 0;
-                    other.SendMessage("Collect");
+                    other.SendMessage("Collect",SendMessageOptions.DontRequireReceiver);
                 }
-
                 else if(itemnumber != ingredientindex)
                 {
                     Debug.Log("Wrong item " + itemnumber + " this should be " + ingredientindex);
@@ -51,8 +50,4 @@ public class ItemsManager : MonoBehaviour {
         }
     }
 
-    void SpawnNewItems()
-    {
-        
-    }
 }

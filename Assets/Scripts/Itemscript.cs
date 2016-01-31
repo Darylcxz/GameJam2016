@@ -8,6 +8,7 @@ public class Itemscript : MonoBehaviour {
     AudioSource maincam;
     [SerializeField]
     AudioClip soundfx;
+	Collider2D col;
 	// Use this for initialization
 	void Start () {
 
@@ -21,6 +22,7 @@ public class Itemscript : MonoBehaviour {
         pickupvfx.Play();
         maincam.PlayOneShot(soundfx);
         item.color = new Color(item.color.r, item.color.g, item.color.b, 0.0f);
+		col.GetComponent<Collider2D>().enabled = false;
         Invoke("Destroyme", 1.0f);
     }
 
