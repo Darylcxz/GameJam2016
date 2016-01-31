@@ -30,6 +30,7 @@ public class Playerlogic : MonoBehaviour {
     [SerializeField]
     AudioSource maincam;
     [SerializeField] AudioClip[] soundeffects;
+	Vector3 scaleFactor;
 	// Use this for initialization
 	void Start () {
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -39,6 +40,7 @@ public class Playerlogic : MonoBehaviour {
         sp = gameObject.GetComponent<SpriteRenderer>();
 		healthGlow = healthGlow.GetComponent<SpriteRenderer>();
 		currentHealth = maxHealth;
+		scaleFactor = healthGlow.transform.localScale;
 	}
 	
 	// Update is called once per frame
@@ -48,6 +50,7 @@ public class Playerlogic : MonoBehaviour {
 		
 		_alpha = currentHealth / maxHealth;
 		healthGlow.color = new Color(healthGlow.color.r, healthGlow.color.g, healthGlow.color.b, _alpha);
+		healthGlow.transform.localScale = new Vector3(scaleFactor.x, scaleFactor.y, scaleFactor.z)*currentHealth/maxHealth;
 		currentHealth += Time.deltaTime/2;
 		if (currentHealth > maxHealth)
 		{
@@ -151,5 +154,9 @@ public class Playerlogic : MonoBehaviour {
 		{
 			_col.enabled = true;
 		}
+	}
+	public void FullHealth()
+	{
+		currentHealth = maxHealth;
 	}
 }
