@@ -94,7 +94,7 @@ public class GhostAI : MonoBehaviour {
 				break;
 			case AILogic.RUNFROMPLAYER:
 				
-				AIMove(target.position, transform.position,translateSpeed*10);
+				AIMove(target.position, transform.position,translateSpeed*5);
 				booSprite.color = new Color(1, 1, 1,(Mathf.Lerp(1, 0, _t / 1)));
 				if (fadeAway)
 				{

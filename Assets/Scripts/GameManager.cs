@@ -29,6 +29,7 @@ public class GameManager : MonoBehaviour {
 	public void NextLevel()
 	{
 		UtilityScript.instance.FlashToFade(_img);
+		player.GetComponent<Playerlogic>().FullHealth();
 		foreach (GameObject ghost in ObjectPooler.current.ghostPool)
 		{
 			ghost.GetComponent<GhostAI>().DespawnAll();
