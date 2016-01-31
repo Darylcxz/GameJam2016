@@ -14,9 +14,12 @@ public class GameManager : MonoBehaviour {
 	Transform playerSpawn;
 	GameObject player;
 
+	[SerializeField]
+	//SpawnManager _spawnManager;
 	// Use this for initialization
 	void Start () {
 		player = GameObject.FindGameObjectWithTag("Player");
+		//_spawnManager = _spawnManager.GetComponent<SpawnManager>();
 	}
 	
 	// Update is called once per frame
@@ -26,6 +29,10 @@ public class GameManager : MonoBehaviour {
 	public void NextLevel()
 	{
 		UtilityScript.instance.FlashToFade(_img);
+		foreach (GameObject ghost in ObjectPooler.current.ghostPool)
+		{
+			ghost.GetComponent<GhostAI>().DespawnAll();
+		}
 		StartCoroutine("SwitchLevel");
 		
 	}
