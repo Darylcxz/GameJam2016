@@ -15,25 +15,39 @@ public class GameManager : MonoBehaviour {
 	GameObject player;
 
 	[SerializeField]
-	//SpawnManager _spawnManager;
+	GameObject explosionBOOM;
+	[SerializeField]
+	SpawnManager _spawnManager;
 	// Use this for initialization
 	void Start () {
 		player = GameObject.FindGameObjectWithTag("Player");
-		//_spawnManager = _spawnManager.GetComponent<SpawnManager>();
+		_spawnManager = _spawnManager.GetComponent<SpawnManager>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-	public void NextLevel()
+	void Update()
 	{
-		UtilityScript.instance.FlashToFade(_img);
-		player.GetComponent<Playerlogic>().FullHealth();
+		if (Input.GetKeyDown(KeyCode.M))
+		{
+			StartCoroutine("SwitchLevel");
+		}
+	}
+
+	public void PlayExplosion()
+	{
+		_spawnManager.stop = true;
 		foreach (GameObject ghost in ObjectPooler.current.ghostPool)
 		{
 			ghost.GetComponent<GhostAI>().DespawnAll();
 		}
+		GameObject explosionClone = (GameObject)Instantiate(explosionBOOM, player.transform.position, Quaternion.identity);
+		player.GetComponent<Playerlogic>().freeze = true;
+		Invoke("NextLevel", 10f);
+	}
+	void NextLevel()
+	{
+		player.GetComponent<Playerlogic>().freeze = false;
+		_spawnManager.stop = false;
+		UtilityScript.instance.FlashToFade(_img);
+		player.GetComponent<Playerlogic>().FullHealth();
 		StartCoroutine("SwitchLevel");
 		
 	}

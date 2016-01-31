@@ -9,7 +9,7 @@ public class SpawnManager : MonoBehaviour {
 	float spawnTimeLimit = 20f;
 	float gameTime;
 
-
+	public bool stop;
 	// Use this for initialization
 	void Start () {
 		SpawnPoints = GetComponentsInChildren<Transform>();
@@ -18,7 +18,7 @@ public class SpawnManager : MonoBehaviour {
 	
 	void Update () {
 		gameTime += Time.deltaTime;
-		if (gameTime > spawnTimeLimit)
+		if (gameTime > spawnTimeLimit && !stop)
 		{
 			int _index = Random.Range(1, SpawnPoints.Length);
 			GameObject ghostClone = ObjectPooler.current.SpawnGhost();
