@@ -10,14 +10,19 @@ public class UtilityScript : MonoBehaviour {
 	float _alpha;
 
 	Vector3 _originalPos;
+	
 	public Transform _cam;
-	public static float camShake;
+	Transform _camPos;
+	float camShake;
+	float shakeAmt;
 
 	// Use this for initialization
 	void Start () 
 	{
 		instance = this;
-	//	_originalPos = _cam.position;
+		_camPos = _cam.transform;
+		_originalPos = _camPos.localPosition;
+		shakeAmt = 2f;
 	
 	}
 	public void FlashToFade(Image _image)
@@ -74,12 +79,6 @@ public class UtilityScript : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		if (Input.GetKeyDown(KeyCode.O))
-		{
-			_originalPos = _cam.position;
-			camShake += 5f;
-
-		}
 		
 		
 		if (_img != null)
@@ -87,21 +86,20 @@ public class UtilityScript : MonoBehaviour {
 			_img.color = new Color(_img.color.r, _img.color.g, _img.color.b, _alpha);
 		}
 
-		//_originalPos = _cam.position;
-
-		// Camera Shake
-		//if (camShake > 0)
-		//{
-		//	_cam.position = _originalPos + Random.insideUnitSphere * 2f;
-
-		//	camShake -= Time.deltaTime;
-		//}
-		//else
-		//{
-		//	camShake = 0f;
-		//	_cam.position = _originalPos;
-		//}
-		
+		 //Camera Shake
+		if (camShake > 0)
+		{
+			Vector3 shakePos = _originalPos + Random.insideUnitSphere * shakeAmt;
+			shakePos.z = -10;
+			_camPos.localPosition = Vector3.Lerp(_camPos.localPosition, shakePos, 1);
+			camShake -= Time.deltaTime;
+		}		
+	}
+	public void CameraShake(float shakeTime, float shakeIntensity)
+	{
+		camShake += shakeTime;
+		shakeAmt = shakeIntensity;
+	
 	}
 	public static Vector3 OnUnitCircle(float x,float y)
 	{

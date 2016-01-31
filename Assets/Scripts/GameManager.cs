@@ -6,8 +6,7 @@ public class GameManager : MonoBehaviour {
 
 	[SerializeField]
 	GameObject[] Levels;
-	[SerializeField]
-	int currentLevel;
+	public int currentLevel;
 	[SerializeField]
 	Image _img;
 	[SerializeField]
@@ -34,6 +33,7 @@ public class GameManager : MonoBehaviour {
 	public void PlayExplosion()
 	{
 		_spawnManager.stop = true;
+		UtilityScript.instance.CameraShake(10f, 2f);
 		foreach (GameObject ghost in ObjectPooler.current.ghostPool)
 		{
 			ghost.GetComponent<GhostAI>().DespawnAll();
