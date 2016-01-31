@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ItemsManager : MonoBehaviour {
     private int ingredientlevel = 0;
-    private int ingredientindex;
+    private int ingredientindex = 0;
     private int itemnumber;
 
     [SerializeField] GameObject[] items;
@@ -14,7 +14,7 @@ public class ItemsManager : MonoBehaviour {
 
     void Start()
     {
-        ingredientindex = 0;
+
     }
 
     void OnTriggerStay2D(Collider2D other)
@@ -26,20 +26,20 @@ public class ItemsManager : MonoBehaviour {
                 int.TryParse(other.gameObject.name, out itemnumber);
                 if(itemnumber == ingredientindex && ingredientindex != ingredientlevel)
                 {
-                    Debug.Log("Correct item " + itemnumber);
+                    Debug.Log(itemnumber + " " + ingredientindex);
                     ingredientindex++;
                     other.SendMessage("Collect");
                 }
 
                 else if(itemnumber == ingredientindex && ingredientindex == ingredientlevel)
                 {
-                    Debug.Log("Light Shines Brighter");
+                    Debug.Log(ingredientlevel);
                     ingredientlevel++;
                     ingredientindex = 0;
                     other.SendMessage("Collect");
                 }
 
-                else
+                else if(itemnumber != ingredientindex)
                 {
                     Debug.Log("Wrong item " + itemnumber + " this should be " + ingredientindex);
                     maincam.PlayOneShot(wrongtitem);
