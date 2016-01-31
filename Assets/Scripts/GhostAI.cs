@@ -94,8 +94,7 @@ public class GhostAI : MonoBehaviour {
 				if (gameTimer > 3.5f)
 				{
 					gameTimer = 0;
-					FindNewTargetPosition();
-					States = AILogic.PATROL;
+					ResetAI();
 				}
 				break;
 			case AILogic.RUNFROMPLAYER:
@@ -203,7 +202,6 @@ public class GhostAI : MonoBehaviour {
 	}
 	public void DespawnAll()
 	{
-		Debug.Log("Despawen");
 		States = AILogic.RUNFROMPLAYER;
 		fadeAway = true;
 	}
