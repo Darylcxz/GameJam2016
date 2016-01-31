@@ -39,6 +39,7 @@ public class GameManager : MonoBehaviour {
 			ghost.GetComponent<GhostAI>().DespawnAll();
 		}
 		GameObject explosionClone = (GameObject)Instantiate(explosionBOOM, player.transform.position, Quaternion.identity);
+		Destroy(explosionClone, 10.5f);
 		player.GetComponent<Playerlogic>().freeze = true;
 		Invoke("NextLevel", 10f);
 	}
