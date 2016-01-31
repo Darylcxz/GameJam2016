@@ -17,12 +17,13 @@ public class Itemscript : MonoBehaviour {
 	}
 
 
-    void Collect()
+    public void Collect()
     {
         pickupvfx.Play();
         maincam.PlayOneShot(soundfx);
         item.color = new Color(item.color.r, item.color.g, item.color.b, 0.0f);
-		col.GetComponent<Collider2D>().enabled = false;
+        col = gameObject.GetComponent<Collider2D>();
+        col.enabled = false;
         Invoke("Destroyme", 1.0f);
     }
 

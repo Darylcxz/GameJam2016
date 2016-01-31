@@ -28,21 +28,25 @@ public class ItemsManager : MonoBehaviour {
                 int.TryParse(other.gameObject.name, out itemnumber);
                 if(itemnumber == ingredientindex && ingredientindex != ingredientlevel)
                 {
-                    Debug.Log(itemnumber + " " + ingredientindex);
                     ingredientindex++;
-                    other.SendMessage("Collect",SendMessageOptions.DontRequireReceiver);
+                    Debug.Log(ingredientindex);
+                    Debug.Log("level = " + ingredientlevel);
+                    Itemscript thisitem = other.GetComponent<Itemscript>();
+                    thisitem.Collect();
                 }
 
                 else if(itemnumber == ingredientindex && ingredientindex == ingredientlevel)
                 {
-                   // Debug.Log(ingredientlevel);
+                    Debug.Log(ingredientlevel);
 					_gm.NextLevel();
                     ingredientlevel++;
+                    Itemscript thisitem = other.GetComponent<Itemscript>();
+                    thisitem.Collect();
                     ingredientindex = 0;
-                    other.SendMessage("Collect",SendMessageOptions.DontRequireReceiver);
                 }
                 else if(itemnumber != ingredientindex)
                 {
+                    Debug.Log(ingredientindex);
                     Debug.Log("Wrong item " + itemnumber + " this should be " + ingredientindex);
                     maincam.PlayOneShot(wrongtitem);
                 }
