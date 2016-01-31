@@ -91,6 +91,12 @@ public class GhostAI : MonoBehaviour {
 				SpriteReposition(); //logic for repositioning the sprite
 				//Let's the sprite blink back and forth
 				booSprite.color = new Color(1, 0, 0, (Mathf.PingPong(Time.time / 2, 1 - 0)));
+				if (gameTimer > 3.5f)
+				{
+					gameTimer = 0;
+					FindNewTargetPosition();
+					States = AILogic.PATROL;
+				}
 				break;
 			case AILogic.RUNFROMPLAYER:
 				
@@ -169,6 +175,7 @@ public class GhostAI : MonoBehaviour {
 	}
 	void ResetAI()
 	{
+		FindNewTargetPosition();
 		States = AILogic.PATROL;
 		transform.position = spawnPoint;
 		transform.rotation = Quaternion.identity;

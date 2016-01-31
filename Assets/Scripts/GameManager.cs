@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour {
 	GameObject player;
 
 	[SerializeField]
+	GameObject explosionBOOM;
 	//SpawnManager _spawnManager;
 	// Use this for initialization
 	void Start () {
@@ -26,8 +27,15 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 	
 	}
-	public void NextLevel()
+	public void PlayExplosion()
 	{
+		GameObject explosionClone = (GameObject)Instantiate(explosionBOOM, player.transform.position, Quaternion.identity);
+		player.GetComponent<Playerlogic>().freeze = true;
+		Invoke("NextLevel", 10f);
+	}
+	void NextLevel()
+	{
+		player.GetComponent<Playerlogic>().freeze = false;
 		UtilityScript.instance.FlashToFade(_img);
 		player.GetComponent<Playerlogic>().FullHealth();
 		foreach (GameObject ghost in ObjectPooler.current.ghostPool)

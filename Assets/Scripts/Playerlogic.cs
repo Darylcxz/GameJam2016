@@ -31,6 +31,8 @@ public class Playerlogic : MonoBehaviour {
     AudioSource maincam;
     [SerializeField] AudioClip[] soundeffects;
 	Vector3 scaleFactor;
+
+	public bool freeze;
 	// Use this for initialization
 	void Start () {
         rb = gameObject.GetComponent<Rigidbody2D>();
@@ -56,31 +58,34 @@ public class Playerlogic : MonoBehaviour {
 		{
 			currentHealth = maxHealth;
 		}
-	
-		Move(Input.GetAxisRaw("Horizontal"));
-		if (onGround)
-		{
-			if (Input.GetAxisRaw("Vertical") < 0)
-			{
-				_playerAnim.SetBool("bDuck", true);
-				if (Input.GetKeyDown(KeyCode.Space))
-				{
-					hit = (Physics2D.Raycast(groundtag.position, Vector2.down, 0.5f,platformMask));
-					if (hit.collider.CompareTag("Platform"))
-					{
-						StartCoroutine("DownJump",hit.collider.gameObject);
-						rb.velocity += Vector2.down * jumpforce;
-					}
-					
-				}
-			}
-			if (Input.GetKeyDown(KeyCode.Space) && Input.GetAxisRaw("Vertical") > -1)
-			{
-				GameObject jumpcloud = Instantiate(jumpdust, transform.position + Vector3.down * 1.8f, jumpdust.transform.rotation) as GameObject;
-                maincam.PlayOneShot(soundeffects[2]);
-				rb.velocity += Vector2.up * jumpforce;
-			}
 
+		if (!freeze)
+		{
+			Move(Input.GetAxisRaw("Horizontal"));
+			if (onGround)
+			{
+				if (Input.GetAxisRaw("Vertical") < 0)
+				{
+					_playerAnim.SetBool("bDuck", true);
+					if (Input.GetKeyDown(KeyCode.Space))
+					{
+						hit = (Physics2D.Raycast(groundtag.position, Vector2.down, 0.5f, platformMask));
+						if (hit.collider.CompareTag("Platform"))
+						{
+							StartCoroutine("DownJump", hit.collider.gameObject);
+							rb.velocity += Vector2.down * jumpforce;
+						}
+
+					}
+				}
+				if (Input.GetKeyDown(KeyCode.Space) && Input.GetAxisRaw("Vertical") > -1)
+				{
+					GameObject jumpcloud = Instantiate(jumpdust, transform.position + Vector3.down * 1.8f, jumpdust.transform.rotation) as GameObject;
+					maincam.PlayOneShot(soundeffects[2]);
+					rb.velocity += Vector2.up * jumpforce;
+				}
+
+			}
 		}
 		if (Input.GetAxisRaw("Vertical")>-1)
 		{
