@@ -17,16 +17,24 @@ public class GameManager : MonoBehaviour {
 	GameObject explosionBOOM;
 	[SerializeField]
 	SpawnManager _spawnManager;
+
+	[SerializeField]
+	GameObject firstObj;
 	// Use this for initialization
 	void Start () {
 		player = GameObject.FindGameObjectWithTag("Player");
 		_spawnManager = _spawnManager.GetComponent<SpawnManager>();
+		firstObj.SetActive(false);
 	}
 	void Update()
 	{
 		if (Input.GetKeyDown(KeyCode.M))
 		{
 			StartCoroutine("SwitchLevel");
+		}
+		if(UIManager._allowOptions)
+		{
+			firstObj.SetActive(true);
 		}
 	}
 
@@ -39,7 +47,9 @@ public class GameManager : MonoBehaviour {
 			ghost.GetComponent<GhostAI>().DespawnAll();
 		}
 		GameObject explosionClone = (GameObject)Instantiate(explosionBOOM, player.transform.position, Quaternion.identity);
+		Destroy(explosionClone, 10.5f);
 		player.GetComponent<Playerlogic>().freeze = true;
+		player.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
 		Invoke("NextLevel", 10f);
 	}
 	void NextLevel()
@@ -50,6 +60,11 @@ public class GameManager : MonoBehaviour {
 		player.GetComponent<Playerlogic>().FullHealth();
 		StartCoroutine("SwitchLevel");
 		
+	}
+	public void StartGame()
+	{
+		_spawnManager.stop = false;
+		firstObj.SetActive(true);
 	}
 	IEnumerator SwitchLevel()
 	{

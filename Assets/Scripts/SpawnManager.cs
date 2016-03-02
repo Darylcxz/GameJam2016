@@ -13,7 +13,7 @@ public class SpawnManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		SpawnPoints = GetComponentsInChildren<Transform>();
-	
+		stop = true;
 	}
 	
 	void Update () {

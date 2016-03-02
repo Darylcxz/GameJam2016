@@ -32,6 +32,8 @@ public class Playerlogic : MonoBehaviour {
     [SerializeField] AudioClip[] soundeffects;
 	Vector3 scaleFactor;
 
+
+
 	public bool freeze;
 	// Use this for initialization
 	void Start () {
@@ -43,14 +45,16 @@ public class Playerlogic : MonoBehaviour {
 		healthGlow = healthGlow.GetComponent<SpriteRenderer>();
 		currentHealth = maxHealth;
 		scaleFactor = healthGlow.transform.localScale;
+		
 	}
 	
 	// Update is called once per frame
 	void Update () {
         onGround = Physics2D.Linecast(transform.position, groundtag.position, playermask);
 		_playerAnim.SetBool("bGrounded", onGround);
-		
+
 		_alpha = currentHealth / maxHealth;
+
 		healthGlow.color = new Color(healthGlow.color.r, healthGlow.color.g, healthGlow.color.b, _alpha);
 		healthGlow.transform.localScale = new Vector3(scaleFactor.x, scaleFactor.y, scaleFactor.z)*currentHealth/maxHealth;
 		currentHealth += Time.deltaTime/2;
@@ -58,7 +62,10 @@ public class Playerlogic : MonoBehaviour {
 		{
 			currentHealth = maxHealth;
 		}
-
+		if(currentHealth < 1)
+		{
+			UIManager._lose = true;
+		}
 		if (!freeze)
 		{
 			Move(Input.GetAxisRaw("Horizontal"));
